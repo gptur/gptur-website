@@ -12,7 +12,7 @@ public class function1 {
   }
 
   [Function(nameof(function1))]
-  public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = nameof(function1)+"/{*path}")] HttpRequestData req, string? path, FunctionContext executionContext) {
+  public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = nameof(function1))] HttpRequestData req, string? path, FunctionContext executionContext) {
     _logger.LogInformation("C# HTTP trigger function processed a request.");
     var response = req.CreateResponse(HttpStatusCode.OK);
     await response.WriteStringAsync("Welcome to Azure Functions!");
