@@ -14,7 +14,7 @@ public class f3 {
   }
 
   [Function(nameof(f3))]
-  public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = nameof(f3)+"/{p1:string}/{p2:int?}")] HttpRequestData req, string p1, int? p2, FunctionContext executionContext) {
+  public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = nameof(f3)+"/{p1}/{p2:int?}")] HttpRequestData req, string p1, int? p2, FunctionContext executionContext) {
     _logger.LogInformation("C# HTTP trigger function processed a request.");
 
     var response = req.CreateResponse(HttpStatusCode.OK);
