@@ -1,23 +1,21 @@
+using System.Net;
+
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
-namespace gptur_functionapp;
+public class function1 {
+  private readonly ILogger<function1> _logger;
 
-public class function1
-{
-    private readonly ILogger<function1> _logger;
+  public function1(ILoggerFactory loggerFactory) {
+    _logger = loggerFactory.CreateLogger<function1>();
+  }
 
-    public function1(ILogger<function1> logger)
-    {
-        _logger = logger;
-    }
-
-    [Function("function1")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
-    {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-        return new OkObjectResult("Welcome to Azure Functions!");
-    }
+  [Function(nameof(function1))]
+  public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = nameof(function1)+"/{*path}")] HttpRequestData req, string? path, FunctionContext executionContext) {
+    _logger.LogInformation("C# HTTP trigger function processed a request.");
+    var response = req.CreateResponse(HttpStatusCode.OK);
+    await response.WriteStringAsync("Welcome to Azure Functions!");
+    return response;
+  }
 }
