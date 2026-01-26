@@ -28,7 +28,7 @@ public class f2 {
     var response = req.CreateResponse(HttpStatusCode.OK);
     response.Headers.Add("Content-Type", "application/json; charset=utf-8");
 
-    response.WriteString($$"""
+    await response.WriteStringAsync($$"""
       {
         "p1": "{{p1}}",
         "p2": {{p2}}
